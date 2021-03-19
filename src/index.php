@@ -1,27 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Personal Pizza Processor!</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<main>
-<p>Order your pizza now!</p>
-<form action="contactform.php" method="post" class="contact-form">
-<input type="text" name="Email" placeholder="Your email">
-<input type="text" name="Street" placeholder="Your street">
-<input type="text" name="Street number" placeholder="Your street number">
-<input type="text" name="City" placeholder="Your city">
-<input type="text" name="Zipcode" placeholder="Your zipcode">
-</form>
-</main>
-</body>
-</html>
 <?php
 //this line makes PHP behave in a more strict way
 declare(strict_types=1);
+
+//$email = $_POST['email']
+
+
+
+//street numbers and zip code are only numbers
+$number= $_POST['number_entered'];
+$form_result= $_POST['form'];
+
+    if (isset($form_result)){
+        if (is_numeric($number)) {
+        echo 'The number you entered is ' . $number. '. This is a valid number.';
+        }
+        else {
+        echo 'Error: You did not enter numbers only. Please enter only numbers.';
+        }
+}
+
+
+
+//street validation
 
 //we are going to use session variables so we need to enable sessions
 session_start();
