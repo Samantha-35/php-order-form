@@ -7,17 +7,17 @@ declare(strict_types=1);
 
 
 //street numbers and zip code are only numbers
-$number= $_POST['number_entered'];
-$form_result= $_POST['form'];
+// $number= $_POST['number_entered'];
+// $form_result= $_POST['form'];
 
-    if (isset($form_result)){
-        if (is_numeric($number)) {
-        echo 'The number you entered is ' . $number. '. This is a valid number.';
-        }
-        else {
-        echo 'Error: You did not enter numbers only. Please enter only numbers.';
-        }
-}
+//     if (isset($form_result)){
+//         if (is_numeric($number)) {
+//         echo 'The number you entered is ' . $number. '. This is a valid number.';
+//         }
+//         else {
+//         echo 'Error: You did not enter numbers only. Please enter only numbers.';
+//         }
+// }
 
 
 
@@ -38,7 +38,7 @@ function whatIsHappening() {
 }
 
 //your products with their price.
-$products = [
+$products  = [
     ['name' => 'Margherita', 'price' => 8],
     ['name' => 'Hawaï', 'price' => 8.5],
     ['name' => 'Salami pepper', 'price' => 10],
@@ -49,8 +49,8 @@ $products = [
     ['name' => 'Four seasons', 'price' => 10.5],
     ['name' => 'Scampi', 'price' => 11.5]
 ];
-
-$products = [
+if (isset($_GET ["food"])&& $_GET ["food"] == 0 ){
+$products  = [
     ['name' => 'Water', 'price' => 1.8],
     ['name' => 'Sparkling water', 'price' => 1.8],
     ['name' => 'Cola', 'price' => 2],
@@ -58,7 +58,7 @@ $products = [
     ['name' => 'Sprite', 'price' => 2],
     ['name' => 'Ice-tea', 'price' => 2.2],
 ];
-
+}
 $totalValue = 0;
-
+setcookie("totalValue", "{$totalValue}", time()+3600);
 require 'form-view.php';

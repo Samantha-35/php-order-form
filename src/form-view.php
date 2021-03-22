@@ -1,54 +1,31 @@
+<?php
+require_once 'index.php';
+//email validation
+if(isset($_POST["submit_button"])){
+
+    $emailRequired= filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+    $streetRequired = filter_var($_POST['street'],FILTER_SANITIZE_STRING);
+    $streetNumber = filter_var($_POST['streetnumber'],FILTER_SANITIZE_NUMBER_INT);
+    $city = filter_var($_POST['street'],FILTER_SANITIZE_STRING);
+    $zipCode = filter_var($_POST['streetnumber'],FILTER_SANITIZE_NUMBER_INT);
+
+    if(filter_var($emailRequired,FILTER_VALIDATE_EMAIL) && !is_numeric($city) && !is_numeric($streetRequired) && is_numeric($streetNumber)){
+        echo"This works!";
+        $_SESSION["email"]= $emailRequired;
+        echo'<div class="alert alert-success" role="alert">Order has been sent!</div>';
+    }else{
+    echo'<div class="alert alert-danger" role="alert">This is not correct!!</div>';
+    
+    }
+};
 
 
+// whatIsHappening();
 
 
+?>
 <!doctype html>
 <html lang="en">
-<?php
-//email validation
-$emailRequired= $_POST['email'];
-
-if (empty $_POST['email']){
-    $emailRequired = 'email is required';
-} elseif(!filter_var($_POST['email'] FILTER_VALIDATE_EMAIL)){
-    $emailRequired = 'email format is valid';
-} else{
-    $emailData = validData($_POST['email']);
-}
-
-//Street required
-$streetRequired = $_POST['street'];
-
-if (empty $_POST['street']){
-    $streetRequired = 'your street is required';
-} elseif(!filter_var($_POST['street'] FILTER_VALIDATE_STREET)){
-    $streetRequired = 'format not valid';
-} else{
-    $streetData = validData($_POST['street']);
-}
-
-//street numbers and zip code are only numbers
-//Street numbers is_numeric:
-$streetNumber= $_POST['streetnumber'];
-$form_result= $_POST['submit_button'];
-
-if (isset($form_result)){
-if (is_numeric($streetNumber)) {
-echo 'The number you entered is ' . $streetNumber. '. This is a valid number.';
-} //je ne dois pas déclarer de var avec valeur numérique?
-else {
-echo 'Error: Please enter numbers only.';
-}
-//zip code is_numeric
-$zipCode = $_POST['zipcode'];
-if (isset($form_result)){
-    if (is_numeric($zipCode)) {
-    echo 'The number you entered is ' . $zipCode. '. This is a valid number.';
-    } //je ne dois déclarer de var avec valeur numérique?
-    else {
-    echo 'Error: Please enter numbers only.';
-    }
-?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -70,11 +47,11 @@ if (isset($form_result)){
             </li>
         </ul>
     </nav>
-    <form method="post">
+    <form method="post" action= 'index.php'>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="email">E-mail:</label>
-                <input type="text" id="email" name="email" class="form-control" required/>
+                <input type="text" id="email" name="email" class="form-control" required value= "<?= $_SESSION['email'] ?? ""?>"/>
             </div>
             <div></div>
         </div>
@@ -85,27 +62,27 @@ if (isset($form_result)){
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
-                    <input type="text" name="street" id="street" class="form-control" required>
+                    <input type="text" name="street" id="street" class="form-control" required value= "<?= $_SESSION['street'] ?? ""?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
-                    <input type="text" id="streetnumber" name="streetnumber" class="form-control" required>
+                    <input type="text" id="streetnumber" name="streetnumber" class="form-control" required value= "<?= $_SESSION['streetnumber'] ?? ""?>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="city">City:</label>
-                    <input type="text" id="city" name="city" class="form-control" required>
+                    <input type="text" id="city" name="city" class="form-control" required value= "<?= $_SESSION['city'] ?? ""?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
-                    <input type="text" id="zipcode" name="zipcode" class="form-control" required>
+                    <input type="text" id="zipcode" name="zipcode" class="form-control" required maxlength="5" value= "<?= $_SESSION['zipcode'] ?? ""?>">
                 </div>
             </div>
         </fieldset>
 
         <fieldset>
-            <legend>Products</legend>
+            <legend>Products</legend> 
             <?php foreach ($products AS $i => $product): ?>
                 <label>
                     <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
