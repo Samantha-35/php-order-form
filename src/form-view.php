@@ -12,11 +12,16 @@ if(isset($_POST["submit_button"])){
     if(filter_var($emailRequired,FILTER_VALIDATE_EMAIL) && !is_numeric($city) && !is_numeric($streetRequired) && is_numeric($streetNumber)){
         echo"This works!";
         $_SESSION["email"]= $emailRequired;
-        echo'<div class="alert alert-success" role="alert">Order has been sent!</div>';
+        if (isset($_POST ['express_delivery'])){
+            echo "<div class='alert alert-success' role='alert'> 30 minutes express delivery!</div>";
+        }else{ 
+            echo'<div class="alert alert-success" role="alert">Order has been sent!</div>';
+        };
+   
     }else{
-    echo'<div class="alert alert-danger" role="alert">This is not correct!!</div>';
-    
-    }
+        echo'<div class="alert alert-danger" role="alert">This is not correct!!</div>';
+    };
+                       
 };
 
 
@@ -32,11 +37,14 @@ if(isset($_POST["submit_button"])){
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <title>Order Pizzas & drinks</title>
 </head>
 <body>
 <div class="container">
-    <h1>Order pizzas in restaurant "the Personal Pizza Processors"</h1>
+    <h1>Pizza Da Mama Mia!"</h1>
     <nav>
         <ul class="nav">
             <li class="nav-item">
@@ -81,21 +89,21 @@ if(isset($_POST["submit_button"])){
             </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="foodMenu">
             <legend>Products</legend> 
             <?php foreach ($products AS $i => $product): ?>
                 <label>
-                    <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
+                    <input type="checkbox" value="1" name="products-<?php echo $i ?>"/> <?php echo $product['name'] ?> -
                     &euro; <?php echo number_format($product['price'], 2) ?></label><br />
             <?php endforeach; ?>
         </fieldset>
         
-        <label>
-            <input type="checkbox" name="express_delivery" value="5" /> 
+        <label class="boxExpressDelivery">
+            <input type="checkbox" name="express_delivery" value="5" class="boxExpressDelivery" /> 
             Express delivery (+ 5 EUR) 
         </label>
             
-        <button type="submit" class="btn btn-primary" name="submit_button">Order!</button>
+        <button type="submit" class="btn btn-primary" name="submit_button" class=>Order!</button>
     </form>
 
     <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in pizza(s) and drinks.</footer>

@@ -59,6 +59,20 @@ $products  = [
     ['name' => 'Ice-tea', 'price' => 2.2],
 ];
 }
-$totalValue = 0;
+
+// we are setting the total value in the cookie
+if (isset($_COOKIE["totalAmount"])){
+    $totalValue = (float)$_COOKIE["totalAmount"];
+}else{
+     $totalValue = 0;
+}
+// we are evaluting if the fields is empty or not
+foreach ($products as $i =>$product){
+    if(!empty($_POST["products-{$i}"])){
+
+        $price = $product["price"];
+        $totalValue = $totalValue + $price;
+    }
+};
 setcookie("totalValue", "{$totalValue}", time()+3600);
 require 'form-view.php';
