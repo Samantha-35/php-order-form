@@ -55,9 +55,10 @@ if(isset($_POST["submit_button"])){
             </li>
         </ul>
     </nav>
+<div class="d-flex flex-row justify-content-center"> 
     <form method="post" action= 'index.php'>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email" class="form-control" required value= "<?= $_SESSION['email'] ?? ""?>"/>
             </div>
@@ -68,27 +69,26 @@ if(isset($_POST["submit_button"])){
             <legend>Address</legend>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control" required value= "<?= $_SESSION['street'] ?? ""?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control" required value= "<?= $_SESSION['streetnumber'] ?? ""?>">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control" required value= "<?= $_SESSION['city'] ?? ""?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" class="form-control" required maxlength="5" value= "<?= $_SESSION['zipcode'] ?? ""?>">
                 </div>
             </div>
         </fieldset>
-
         <fieldset class="foodMenu">
             <legend>Products</legend> 
             <?php foreach ($products AS $i => $product): ?>
@@ -105,6 +105,8 @@ if(isset($_POST["submit_button"])){
             
         <button type="submit" class="btn btn-primary" name="submit_button" class=>Order!</button>
     </form>
+</div>   
+
 
     <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in pizza(s) and drinks.</footer>
 </div>
