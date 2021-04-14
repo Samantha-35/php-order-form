@@ -66,7 +66,7 @@ if(isset($_POST["submit_button"])){
         </div>
 
         <fieldset>
-            <legend>Address</legend>
+            <legend></legend>
 
             <div class="form-row">
                 <div class="form-group col-md-12">
